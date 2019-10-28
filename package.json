@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/tramway start",
     "build": "NODE_ENV=development ./node_modules/.bin/tramway build",
-    "watch": "NODE_ENV=development ./node_modules/.bin/tramway build --watch"
+    "watch": "NODE_ENV=development ./node_modules/.bin/tramway build --watch",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",

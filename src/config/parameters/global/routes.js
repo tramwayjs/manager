@@ -4,6 +4,12 @@ const routeValues = [
         "action": "index",
         "methods": ["get"]
     },
+    {
+        "controller": "controller.libraries",
+        "action": "index",
+        "path": "libraries",
+        "methods": ["get"]
+    },
 ];
 
 export default routeValues;
