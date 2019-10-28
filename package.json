@@ -1,0 +1,45 @@
+{
+  "name": "tramway-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/tramway start",
+    "build": "NODE_ENV=development ./node_modules/.bin/tramway build",
+    "watch": "NODE_ENV=development ./node_modules/.bin/tramway build --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/tramwayjs/tramway-manager.git"
+  },
+  "author": "Julian Wolfe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/tramwayjs/tramway-manager/issues"
+  },
+  "homepage": "https://gitlab.com/tramwayjs/tramway-manager#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "method-override": "^3.0.0",
+    "semantic-ui-react": "^0.88.1",
+    "tramway": "^0.5.1",
+    "tramway-core": "^2.2.1",
+    "tramway-core-dependency-injector": "^1.2.1",
+    "tramway-core-logger": "^0.1.0",
+    "tramway-core-react": "^1.0.0",
+    "tramway-core-router": "^3.6.2",
+    "tramway-logger-winston": "^0.1.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-transform-flow-strip-types": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3"
+  }
+}
