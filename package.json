@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "ejs": "^2.7.1",
     "express": "^4.17.1",
+    "latest-version": "^5.1.0",
     "method-override": "^3.0.0",
     "semantic-ui-react": "^0.88.1",
     "tramway": "^0.5.1",
