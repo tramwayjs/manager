@@ -14,8 +14,12 @@ export default class LibrariesController extends Controller {
         const {dependencies, devDependencies} = packageContents;
 
         let updates = {};
-        for (let library of Object.keys({...dependencies, ...devDependencies})) {
-            updates[library] = await latestVersion(library);
+        for (let [library, version] of Object.entries({...dependencies, ...devDependencies})) {
+            try {
+                updates[library] = await latestVersion(library);
+            } catch(e) {
+                updates[library] = version;
+            }
         }
         
         return ReactController.render(res, Libraries, {dependencies, devDependencies, updates});
