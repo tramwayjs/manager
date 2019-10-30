@@ -32,7 +32,7 @@ export default {
         "class": DependencyInjectionController,
         "constructor": [
             {"type": "service", "key": "router"},
-            {"type": "service", "key": "config-parser"},
+            {"type": "service", "key": "repository.dependencies"},
         ],
         "functions": []
     },

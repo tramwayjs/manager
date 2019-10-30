@@ -1,8 +1,17 @@
 export default class ConfigParser {
     getJSONFromConfig(file) {
-        file = file.replace('=', '__DELIMETER__').replace(';', '__DELIMETER__');
+        file = file
+            .replace('=', '__DELIMETER__')
+            .replace(';', '__DELIMETER__')
+        ;
+
         let [declaration, items, ...remainder] = file.split('__DELIMETER__');
-        items = items.replace(/,\s*]/, ']');
+
+        items = items
+            .replace(/,\s*]/, ']')
+            .replace(/\'/g, '"')
+        ;
+
         return JSON.parse(items);
     }
 
@@ -24,6 +33,7 @@ export default class ConfigParser {
             .replace(';', '')
             .replace(/class\":\s*/g, 'class": "')
             .replace(/,\n\s*\"constructor"/g, `",\n"constructor"`)
+            .replace(/\'/g, '"')
         ;
 
         return JSON.parse(items.trim());

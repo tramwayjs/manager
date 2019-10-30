@@ -22,6 +22,13 @@ const routeValues = [
         "path": "dependency-injection",
         "methods": ["get"]
     },
+    {
+        "controller": "controller.dependency-injection",
+        "action": "getOne",
+        "path": "dependency-injection",
+        "methods": ["get"],
+        "arguments": ['key']
+    },
 ];
 
 export default routeValues;
