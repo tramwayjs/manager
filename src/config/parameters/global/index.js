@@ -6,7 +6,7 @@ import cookieParser from './cookieParser';
 import bodyParser from './bodyParser';
 import methodOverrides from './methodOverrides';
 import routes from './routes';
-import template from './template';
+import {staticRoute, staticRouteMiddleware} from './static';
 
 export default {
     ...winston,
@@ -17,5 +17,6 @@ export default {
     ...bodyParser,
     ...methodOverrides,
     routes,
-    ...template,
+    staticRoute,
+    staticRouteMiddleware,
 }

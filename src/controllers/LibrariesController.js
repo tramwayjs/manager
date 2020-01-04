@@ -1,12 +1,13 @@
-import { Libraries } from '../components/pages';
-import {controllers} from 'tramway-core-react';
-import { Controller } from 'tramway-core-router';
+import {controllers} from 'tramway-core-router';
 import fs from 'fs';
 import latestVersion from 'latest-version';
+const {RestfulController} = controllers;
 
-const {ReactController} = controllers;
-
-export default class LibrariesController extends Controller {
+export default class LibrariesController extends RestfulController {
+    constructor(router, logger, formatter) {
+        super(router, null, logger, formatter);
+    }
+    
     async index(req, res, next) {
         let pg = await new Promise((resolve, reject) => fs.readFile('package.json', (err, data) => err ? reject(err) : resolve(data)));
         
@@ -21,7 +22,7 @@ export default class LibrariesController extends Controller {
                 updates[library] = version;
             }
         }
-        
-        return ReactController.render(res, Libraries, {dependencies, devDependencies, updates});
+
+        return res.json({dependencies, devDependencies, updates});
     }
 }

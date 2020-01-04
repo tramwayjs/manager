@@ -1,10 +1,8 @@
-import {
-    App,
-} from 'tramway-core';
+import { Server } from '@tramwayjs/core';
 
 export default {
-    "app": {
-        "class": App,
+    "server": {
+        "class": Server,
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "parameter", "key": "app"},
@@ -48,21 +46,15 @@ export default {
                 ]
             },
             {
+                "function": "use",
+                "args": [
+                    {"type": "parameter", "key": "staticRouteMiddleware"},
+                ]
+            },
+            {
                 "function": "addLogger",
                 "args": [
                     {"type": "service", "key": "logger.middleware"}
-                ]
-            },
-            {
-                "function": "set",
-                "args": [
-                    {"type": "parameter", "key": "template.engine"}
-                ]
-            },
-            {
-                "function": "set",
-                "args": [
-                    {"type": "parameter", "key": "template.location"}
                 ]
             },
         ]

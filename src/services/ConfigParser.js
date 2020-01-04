@@ -23,7 +23,9 @@ export default class ConfigParser {
         let [declaration, items, ...remainder] = file.split('__DELIMETER__');
         
         items = items
+            .replace(/createDependencyResolver\(name\)/, '')
             .replace(/DependencyResolver/, '')
+            .replace(/app\(\"*\'*\`*\w*\`*\'*\"*\)\.get\(\)/, '')
             .replace(/,\n*\s*]/g, ']')
             .replace(/,\n*};/g, '};')
             .replace(/],\n*\s*}/g, ']}')
@@ -35,7 +37,7 @@ export default class ConfigParser {
             .replace(/,\n\s*\"constructor"/g, `",\n"constructor"`)
             .replace(/\'/g, '"')
         ;
-
+        
         return JSON.parse(items.trim());
     }
 }

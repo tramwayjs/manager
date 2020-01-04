@@ -20,12 +20,11 @@ export default class DependenciesRepository {
             this.services = services;
         }
 
-
         return this.services;
     }
 
     async getService(key) {        
-        if (!this.services) {
+        if (!this.servicesConfig) {
             await this.getServices();
         }
 

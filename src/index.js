@@ -1,10 +1,6 @@
-import {DependencyResolver} from 'tramway-core-dependency-injector';
-import * as parameters from './config/parameters';
-import services from './config/services';
+import { ClientManager } from './core';
 
-DependencyResolver.initialize(services, parameters);
-
-let app = DependencyResolver.getService('app');
-app.initialize().start();
-
-export default app;
+export default ClientManager;
+export {
+    ClientManager,
+}

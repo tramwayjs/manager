@@ -3,20 +3,26 @@ import {
     LibrariesController,
     RoutingController,
     DependencyInjectionController,
+    AppController,
 } from '../../controllers';
 
 export default {
     "controller.main": {
         "class": MainController,
         "constructor": [
-            {"type": "service", "key": "router"}
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "service.formatter"},
+            {"type": "parameter", "key": "staticRouteMiddleware"},
         ],
         "functions": []
     },
     "controller.libraries": {
         "class": LibrariesController,
         "constructor": [
-            {"type": "service", "key": "router"}
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "service.formatter"},
         ],
         "functions": []
     },
@@ -25,6 +31,8 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "config-parser"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "service.formatter"},
         ],
         "functions": []
     },
@@ -33,6 +41,19 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "repository.dependencies"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "service.app-manager"},
+        ],
+        "functions": []
+    },
+    "controller.app": {
+        "class": AppController,
+        "constructor": [
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "service.app-manager"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "service.formatter"},
         ],
         "functions": []
     },
