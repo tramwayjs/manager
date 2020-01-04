@@ -1,11 +1,9 @@
-import { Routing } from '../components/pages';
-import {controllers} from 'tramway-core-react';
-import { Controller } from 'tramway-core-router';
+import {controllers} from 'tramway-core-router';
 import fs from 'fs';
 
-const {ReactController} = controllers;
+const {RestfulController} = controllers;
  
-export default class RoutingController extends Controller {
+export default class RoutingController extends RestfulController {
     constructor(router, configParser) {
         super(router);
 
@@ -16,7 +14,6 @@ export default class RoutingController extends Controller {
         let file = await new Promise((resolve, reject) => fs.readFile('src/config/parameters/global/routes.js', (err, data) => err ? reject(err) : resolve(data)));
         
         const routes = this.configParser.getJSONFromConfig(file.toString());
-        
-        return ReactController.render(res, Routing, {routes});
+        return res.json({routes});
     }
 }

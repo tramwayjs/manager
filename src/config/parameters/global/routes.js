@@ -1,33 +1,46 @@
 const routeValues = [
     {
-        "controller": "controller.main",
-        "action": "index",
-        "methods": ["get"]
-    },
-    {
         "controller": "controller.libraries",
         "action": "index",
-        "path": "libraries",
+        "path": "api/libraries",
         "methods": ["get"]
     },
     {
         "controller": "controller.routing",
         "action": "index",
-        "path": "routing",
+        "path": "api/routing",
         "methods": ["get"]
     },
     {
         "controller": "controller.dependency-injection",
-        "action": "index",
-        "path": "dependency-injection",
+        "action": "get",
+        "path": "api/dependency-injection",
         "methods": ["get"]
     },
     {
         "controller": "controller.dependency-injection",
         "action": "getOne",
-        "path": "dependency-injection",
+        "path": "api/dependency-injection",
         "methods": ["get"],
         "arguments": ['key']
+    },
+    {
+        "controller": "controller.app",
+        "action": "get",
+        "path": "app",
+        "methods": ["get"],
+    },
+    {
+        "controller": "controller.app",
+        "action": "update",
+        "path": "app",
+        "methods": ["patch"],
+    },
+    {
+        "controller": "controller.main",
+        "action": "index",
+        "path": "*",
+        "methods": ["get"]
     },
 ];
 

@@ -1,5 +1,6 @@
 import {Router, strategies} from 'tramway-core-router';
-import { DependencyResolver } from 'tramway-core-dependency-injector';
+import {createDependencyResolver} from '@tramwayjs/dependency-injector';
+import {name} from '../meta';
 
 const {ExpressServerStrategy} = strategies;
 
@@ -9,7 +10,7 @@ export default {
         "constructor": [
             {"type": "parameter", "key": "routes"},
             {"type": "service", "key": "express-router-strategy"},
-            DependencyResolver
+            createDependencyResolver(name)
         ],
     },
     "express-router-strategy": {

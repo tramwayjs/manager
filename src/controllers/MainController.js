@@ -1,10 +1,14 @@
-import { Dashboard } from '../components/pages';
-import {controllers} from 'tramway-core-react';
-import { Controller } from 'tramway-core-router';
-const {ReactController} = controllers;
+import {controllers} from 'tramway-core-router';
+import path from 'path';
 
-export default class MainController extends Controller {
-    async index(req, res, next) {
-        return ReactController.render(res, Dashboard, {message: "Something"})
+const {RestfulController} = controllers;
+
+export default class MainController extends RestfulController {
+    constructor(router, logger, formatter) {
+        super(router, null, logger, formatter);
+    }
+
+    async index(req, res) {
+        return res.sendFile(path.resolve(__dirname, '../../dashboard/build/index.html'));
     }
 }
