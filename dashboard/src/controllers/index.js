@@ -3,6 +3,8 @@ import LibrariesController from './LibrariesController';
 import DependencyInjectionController from './DependencyInjectionController';
 import DependencyInspectionController from './DependencyInspectionController';
 import RoutingController from './RoutingController';
+import ParametersController from './ParametersController';
+import ServicesController from './ServicesController';
 import PageNotFoundController from './PageNotFoundController';
 
 export {
@@ -11,5 +13,7 @@ export {
     DependencyInjectionController,
     DependencyInspectionController,
     RoutingController,
+    ParametersController,
+    ServicesController,
     PageNotFoundController,
 }

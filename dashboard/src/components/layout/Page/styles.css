@@ -1,0 +1,23 @@
+.page {
+    --menu-height: 48px;
+}
+
+.page.sidebar {
+    height: 100vh;
+}
+
+.page.frame {
+    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100vh - var(--menu-height));
+    margin-top: var(--menu-height);
+}
+
+.page.content {
+   padding-top: 45px;
+}
+
+body {
+    overflow: hidden;
+}

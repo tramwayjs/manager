@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Table } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 
 export default class InstalledLibraries extends Component {
     prepareRows() {
@@ -10,7 +10,7 @@ export default class InstalledLibraries extends Component {
                 <Table.Cell>{library}</Table.Cell>
                 <Table.Cell>{version}</Table.Cell>
                 <Table.Cell>{updates[library]}</Table.Cell>
-                <Table.Cell><button>Update</button></Table.Cell>
+                <Table.Cell><Button size="mini" primary>Update</Button></Table.Cell>
             </Table.Row>
         ))
     }

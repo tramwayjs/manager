@@ -30,7 +30,7 @@ export default class AppToggle extends Component {
 
         this.setState({loading: true})
 
-        let response = await fetch('http://localhost:8000/app', {
+        let response = await fetch('http://localhost:8000/api/state', {
             method: 'PATCH',
             body: JSON.stringify({state}),
             headers: {
@@ -49,11 +49,32 @@ export default class AppToggle extends Component {
         });
     }
 
+    async getApplicationState() {
+        const results = await fetch('/api/state');
+        const {instances = []} = await results.json();
+        
+        this.setState({status: instances.length ? 'active' : 'stopped'});
+    }
+
+    async componentDidMount() {
+        try {
+            await this.getApplicationState();
+        } catch(e) {
+            
+        }
+    }
+
     render() {
         const {status, error, loading} = this.state;
 
         return (
-            <Button icon={AppToggle.getIcon(status)} onClick={async () => await this.handleToggle(status)} error={error} loading={loading}/>
+            <Button 
+                icon={AppToggle.getIcon(status)} 
+                onClick={async () => await this.handleToggle(status)} 
+                error={Boolean(error)} 
+                loading={loading}
+                color={'stopped' === status ? 'green': 'red'}
+            />
         )
     }
 }

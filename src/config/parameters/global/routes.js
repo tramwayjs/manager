@@ -27,13 +27,13 @@ const routeValues = [
     {
         "controller": "controller.app",
         "action": "get",
-        "path": "app",
+        "path": "api/state",
         "methods": ["get"],
     },
     {
         "controller": "controller.app",
         "action": "update",
-        "path": "app",
+        "path": "api/state",
         "methods": ["patch"],
     },
     {

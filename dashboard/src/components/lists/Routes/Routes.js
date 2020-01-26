@@ -3,11 +3,11 @@ import { Table } from "semantic-ui-react";
 
 export default class Routes extends Component {
     prepareRows() {
-        const {routes = []} = this.props;
+        const {routes = [], baseUrl = ''} = this.props;
 
         return Object.values(routes).map(({controller, action, path = '', methods, policy = 'None'}, i) => (
             <Table.Row key={i}>
-                <Table.Cell>{`/${path}`}</Table.Cell>
+                <Table.Cell><a href={`${baseUrl}/${path}`} target="_blank">{`/${path}`}</a></Table.Cell>
                 <Table.Cell className="uppercase">{methods}</Table.Cell>
                 <Table.Cell><a href={`/dependency-injection/${controller}`}>{controller}</a></Table.Cell>
                 <Table.Cell>{action}</Table.Cell>

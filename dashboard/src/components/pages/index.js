@@ -3,6 +3,8 @@ import Libraries from './Libraries';
 import Routing from './Routing';
 import Dependencies from './Dependencies';
 import Dependency from './Dependency';
+import Parameters from './Parameters';
+import Services from './Services';
 import NotFound from './NotFound';
 
 export {
@@ -11,5 +13,7 @@ export {
     Routing,
     Dependencies,
     Dependency,
+    Parameters,
+    Services,
     NotFound,
 }
