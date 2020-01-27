@@ -5,6 +5,7 @@ import {
     DependencyInjectionController,
     AppController,
     SystemController,
+    LogsController,
 } from '../../controllers';
 
 export default {
@@ -66,6 +67,16 @@ export default {
             {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.formatter"},
             {"type": "service", "key": "service.app-manager"},
+        ],
+        "functions": []
+    },
+    "controller.logs": {
+        "class": LogsController,
+        "constructor": [
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "service.logs"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "service.formatter"},
         ],
         "functions": []
     },

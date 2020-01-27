@@ -7,6 +7,7 @@ import {
     ParametersController,
     PageNotFoundController,
     ServicesController,
+    LogsController,
 } from '../../controllers';
 
 import {withDependencyInjection} from 'tramway-router-react-strategy';
@@ -70,6 +71,10 @@ export default {
     },
     "controller.routing": {
         "class": withDependencyInjection(RoutingController),
+        "constructor": [],
+    },
+    "controller.logs": {
+        "class": withDependencyInjection(LogsController),
         "constructor": [],
     },
     "controller.not_found": {

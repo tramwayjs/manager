@@ -71,6 +71,11 @@ const routesValues = [
         "methods": ["get"],
     },
     {
+        "controller": "controller.logs",
+        "path": "logs",
+        "methods": ["get"],
+    },
+    {
         "controller": 'controller.not_found',
         "methods": ["get"],
         "path": "*",

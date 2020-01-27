@@ -43,6 +43,12 @@ const routeValues = [
         "methods": ["get"],
     },
     {
+        "controller": "controller.logs",
+        "action": "get",
+        "path": "api/logs",
+        "methods": ["get"],
+    },
+    {
         "controller": "controller.main",
         "action": "index",
         "path": "*",

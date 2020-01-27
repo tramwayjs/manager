@@ -4,6 +4,7 @@ import {
     ConfigParser,
     AppManager,
     SystemService,
+    LogsParser,
 } from '../../services';
 
 export default {
@@ -26,5 +27,8 @@ export default {
     },
     "service.system": {
         "class": SystemService,
+    },
+    "service.logs": {
+        "class": LogsParser,
     },
 };

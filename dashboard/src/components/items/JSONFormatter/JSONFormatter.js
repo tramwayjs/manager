@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 export default class JSONFormatter extends Component {
     render() {
-        const {data} = this.props;
+        const {data, className} = this.props;
         let value;
 
         try {
@@ -16,7 +16,7 @@ export default class JSONFormatter extends Component {
         }
 
         return (
-            <div>
+            <div className={className}>
                 <pre>{value}</pre>
             </div>
         )
