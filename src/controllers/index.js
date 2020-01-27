@@ -3,6 +3,7 @@ import LibrariesController from './LibrariesController';
 import RoutingController from './RoutingController';
 import DependencyInjectionController from './DependencyInjectionController';
 import AppController from './AppController';
+import SystemController from './SystemController';
 
 export {
     MainController,
@@ -10,4 +11,5 @@ export {
     RoutingController,
     DependencyInjectionController,
     AppController,
+    SystemController,
 }

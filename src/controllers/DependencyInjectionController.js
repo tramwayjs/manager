@@ -10,7 +10,9 @@ export default class DependencyInjectionController extends RestfulController {
     }
 
     async get(req, res, next) {
-        const services = await this.dependencyInjectionRepository.getServices();
+        const {filter} = req.query;
+
+        const services = await this.dependencyInjectionRepository.getServices(filter);
         const {parameters, instances} = await this.appService.getHostApplicationState();
 
         return res.json({parameters, services, instances})

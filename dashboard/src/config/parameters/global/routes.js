@@ -21,6 +21,51 @@ const routesValues = [
         "path": "dependency-injection",
     },
     {
+        "controller": "controller.parameters",
+        "methods": ["get"],
+        "path": "parameters",
+    },
+    {
+        "controller": "controller.policies",
+        "methods": ["get"],
+        "path": "policies",
+    },
+    {
+        "controller": "controller.services",
+        "methods": ["get"],
+        "path": "services",
+    },
+    {
+        "controller": "controller.controllers",
+        "methods": ["get"],
+        "path": "controllers",
+    },
+    {
+        "controller": "controller.repositories",
+        "methods": ["get"],
+        "path": "repositories",
+    },
+    {
+        "controller": "controller.factories",
+        "methods": ["get"],
+        "path": "factories",
+    },
+    {
+        "controller": "controller.dependency-inspection",
+        "path": "services/:key",
+        "methods": ["get"],
+    },
+    {
+        "controller": "controller.providers",
+        "methods": ["get"],
+        "path": "providers",
+    },
+    {
+        "controller": "controller.dependency-inspection",
+        "path": "providers/:key",
+        "methods": ["get"],
+    },
+    {
         "controller": "controller.dependency-inspection",
         "path": "dependency-injection/:key",
         "methods": ["get"],

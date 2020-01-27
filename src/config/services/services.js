@@ -3,6 +3,7 @@ import HATEAOSFormatter, { HATEAOSEntityFactory } from 'tramway-formatter-hateao
 import {
     ConfigParser,
     AppManager,
+    SystemService,
 } from '../../services';
 
 export default {
@@ -22,5 +23,8 @@ export default {
     },
     "service.app-manager": {
         "class": AppManager,
+    },
+    "service.system": {
+        "class": SystemService,
     },
 };

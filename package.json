@@ -1,6 +1,6 @@
 {
   "name": "@tramwayjs/manager",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://gitlab.com/tramwayjs/tramway-manager#readme",
   "dependencies": {
-    "@tramwayjs/core": "^3.0.0-beta.0",
+    "@tramwayjs/core": "^3.0.0-beta.4",
     "@tramwayjs/dependency-injector": "^2.0.0-beta.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
@@ -31,6 +31,7 @@
     "express": "^4.17.1",
     "latest-version": "^5.1.0",
     "method-override": "^3.0.0",
+    "pidusage": "^2.0.17",
     "tramway": "^0.5.1",
     "tramway-core-logger": "^0.1.0",
     "tramway-core-router": "^3.6.2",

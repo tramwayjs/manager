@@ -5,7 +5,7 @@ export default class DependenciesRepository {
         this.configParser = configParser;
     }
 
-    async getServices() {
+    async getServices(filter) {
         if (!this.services) {
             const baseDir = 'src/config/services';
     
@@ -18,6 +18,25 @@ export default class DependenciesRepository {
             }, {});
     
             this.services = services;
+        }
+
+        if (filter) {
+            return Object.entries(this.services)
+                .filter(([key]) => {
+                    const [type, ...spec] = key.split('.');
+
+                    if ('service' === filter && !spec.length) {
+                        return true;
+                    }
+
+                    return type === filter;
+                })
+                .reduce((accumulator, [key, service]) => {
+                    return {
+                        ...accumulator, 
+                        [key]: service,
+                    };
+                }, {});
         }
 
         return this.services;

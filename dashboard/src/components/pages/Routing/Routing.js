@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Page } from "../../layout";
 import { Routes } from "../../lists";
-import { Segment } from 'semantic-ui-react';
+import { Segment, Header } from 'semantic-ui-react';
 
 export default class Routing extends Component {
     state = {
@@ -9,14 +9,15 @@ export default class Routing extends Component {
     }
 
     render() {
-        const {file, routes} = this.props;
+        const {file, routes, baseUrl} = this.props;
         const {loading} = this.state;
 
         return (
             <Page>
+                <Header as='h2'>Routes</Header>
                 {file}
                 <Segment basic vertical loading={loading}>
-                    <Routes routes={routes}/>
+                    <Routes routes={routes} baseUrl={baseUrl}/>
                 </Segment>
             </Page>
         )

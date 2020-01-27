@@ -7,7 +7,14 @@ export default class AppController extends RestfulController {
     }
 
     async get(req, res, next) {
-        const result = await this.service.getHostApplicationState();
+        let result;
+
+        try {
+            result = await this.service.getHostApplicationState();
+        } catch(e) {
+            return res.sendStatus(HttpStatus.GONE);
+        }
+        
         return res.json(result);
     }
     
@@ -15,8 +22,8 @@ export default class AppController extends RestfulController {
         const {state} = req.body;
 
         switch (state) {
-            case 'active': this.service.startApp(); break;
-            case 'stopped': this.service.stopApp(); break;
+            case 'active': await this.service.startHost(); break;
+            case 'stopped': await this.service.stopHost(); break;
             default: return res.status(HttpStatus.BAD_REQUEST).send('Invalid state passed');
         }
 
