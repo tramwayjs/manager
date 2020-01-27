@@ -1,0 +1,2 @@
+.page{--menu-height:48px}.page.sidebar{height:100vh}.page.frame{overflow:auto;overflow-x:hidden;overflow-y:scroll;height:calc(100vh - var(--menu-height));margin-top:var(--menu-height)}.page.content{padding-top:45px}body{overflow:hidden}.page.logs{max-height:200px;overflow-y:auto}.ui.table td{max-width:400px;overflow:auto}.logs.container{margin:0!important}
+/*# sourceMappingURL=main.8d4a219d.chunk.css.map */
