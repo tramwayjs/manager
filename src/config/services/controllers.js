@@ -4,6 +4,7 @@ import {
     RoutingController,
     DependencyInjectionController,
     AppController,
+    SystemController,
 } from '../../controllers';
 
 export default {
@@ -54,6 +55,17 @@ export default {
             {"type": "service", "key": "service.app-manager"},
             {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.formatter"},
+        ],
+        "functions": []
+    },
+    "controller.system": {
+        "class": SystemController,
+        "constructor": [
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "service.system"},
+            {"type": "service", "key": "logger"},
+            {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "service.app-manager"},
         ],
         "functions": []
     },

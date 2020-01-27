@@ -44,6 +44,30 @@ export default class Manager extends App {
         });
     }
 
+    async startHost() {
+        return new Promise((resolve, reject) => {
+            return process.send(new Command('start'), err => {
+                if(err) {
+                    return reject(err);
+                }
+
+                return resolve(this);
+            });
+        })
+    }
+
+    async stopHost() {
+        return new Promise((resolve, reject) => {
+            return process.send(new Command('stop'), err => {
+                if(err) {
+                    return reject(err);
+                }
+
+                return resolve(this);
+            });
+        });
+    }
+
     async execute(command) {
         switch(command) {
             case 'start': return await this.start();

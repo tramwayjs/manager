@@ -67,8 +67,10 @@ export default class Kernel {
         message = this.messageFactory.init(message);
 
         if (message instanceof Command) {
-            if (message.getValue() === 'state') {
-                this.manager.getClientApplicationState();
+            switch(message.getValue()) {
+                case 'state': this.manager.getClientApplicationState(); break;
+                case 'start': this.manager.startClient(); break;
+                case 'stop': this.manager.stopClient(); break;
             }
         }
 

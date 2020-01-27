@@ -57,11 +57,13 @@ export default class AppToggle extends Component {
     }
 
     async componentDidMount() {
-        try {
-            await this.getApplicationState();
-        } catch(e) {
-            
-        }
+        setTimeout(async () => {
+            try {
+                await this.getApplicationState();
+            } catch(e) {
+                
+            }
+        }, 10);
     }
 
     render() {

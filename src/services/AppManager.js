@@ -27,6 +27,14 @@ export default class AppManager {
         this.server.close();
     }
 
+    async startHost() {
+        this.app.startHost();
+    }
+
+    async stopHost() {
+        this.app.stopHost();
+    }
+
     async getHostApplicationState() {
         return await this.app.getHostApplicationState();
     }

@@ -37,6 +37,12 @@ const routeValues = [
         "methods": ["patch"],
     },
     {
+        "controller": "controller.system",
+        "action": "get",
+        "path": "api/system",
+        "methods": ["get"],
+    },
+    {
         "controller": "controller.main",
         "action": "index",
         "path": "*",
