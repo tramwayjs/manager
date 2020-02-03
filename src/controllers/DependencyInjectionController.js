@@ -12,7 +12,7 @@ export default class DependencyInjectionController extends RestfulController {
     async get(req, res, next) {
         const {filter} = req.query;
 
-        const services = await this.dependencyInjectionRepository.getServices(filter);
+        const services = await this.dependencyInjectionRepository.query({type: filter});
         const {parameters, instances} = await this.appService.getHostApplicationState();
 
         return res.json({parameters, services, instances})
@@ -21,7 +21,7 @@ export default class DependencyInjectionController extends RestfulController {
     async getOne(req, res, next) {
         const {key} = req.params;
 
-        const service = await this.dependencyInjectionRepository.getService(key);
+        const service = await this.dependencyInjectionRepository.getOne(key);
 
         if (!service) {
             return res.sendStatus(HttpStatus.NOT_FOUND);
@@ -38,7 +38,7 @@ export default class DependencyInjectionController extends RestfulController {
                 return;
             }
 
-            return [key, await this.dependencyInjectionRepository.getService(key)];
+            return [key, await this.dependencyInjectionRepository.getOne(key)];
         }));
 
         const {parameters: allParameters} = await this.appService.getHostApplicationState();

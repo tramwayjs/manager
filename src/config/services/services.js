@@ -5,6 +5,7 @@ import {
     AppManager,
     SystemService,
     LogsParser,
+    EntitiesParser,
 } from '../../services';
 
 export default {
@@ -30,5 +31,8 @@ export default {
     },
     "service.logs": {
         "class": LogsParser,
+    },
+    "entity-parser": {
+        "class": EntitiesParser,
     },
 };

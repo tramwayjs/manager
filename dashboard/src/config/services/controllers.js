@@ -8,6 +8,8 @@ import {
     PageNotFoundController,
     ServicesController,
     LogsController,
+    EntitiesController,
+    EntityController,
 } from '../../controllers';
 
 import {withDependencyInjection} from 'tramway-router-react-strategy';
@@ -57,6 +59,18 @@ export default {
         "class": withDependencyInjection(ServicesController),
         "constructor": [
             'factory',
+        ],
+    },
+    "controller.entities": {
+        "class": withDependencyInjection(EntitiesController),
+        "constructor": [
+            'entity',
+        ],
+    },
+    "controller.entity": {
+        "class": withDependencyInjection(EntityController),
+        "constructor": [
+            'entity',
         ],
     },
     "controller.providers": {

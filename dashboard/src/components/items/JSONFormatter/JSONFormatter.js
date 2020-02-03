@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 
 export default class JSONFormatter extends Component {
-    render() {
-        const {data, className} = this.props;
+    static format(data) {
         let value;
 
         try {
@@ -14,6 +13,13 @@ export default class JSONFormatter extends Component {
                 value = data.toString();
             }
         }
+        
+        return value;
+    }
+
+    render() {
+        const {data, className} = this.props;
+        let value = JSONFormatter.format(data);
 
         return (
             <div className={className}>

@@ -6,6 +6,8 @@ import RoutingController from './RoutingController';
 import ParametersController from './ParametersController';
 import ServicesController from './ServicesController';
 import LogsController from './LogsController';
+import EntitiesController from './EntitiesController';
+import EntityController from './EntityController';
 import PageNotFoundController from './PageNotFoundController';
 
 export {
@@ -17,5 +19,7 @@ export {
     ParametersController,
     ServicesController,
     LogsController,
+    EntitiesController,
+    EntityController,
     PageNotFoundController,
 }

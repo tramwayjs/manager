@@ -51,6 +51,10 @@ export default class Sidebar extends PureComponent {
                         <Icon name='factory' />
                         Factories
                     </Menu.Item>
+                    <Menu.Item link href="/entities">
+                        <Icon name='file code' />
+                        Entities
+                    </Menu.Item>
                     <Menu.Item link href="/providers">
                         <Icon name='database' />
                         Providers

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Page } from "../../layout";
 import { DependenciesList, ParametersList, FunctionsList } from "../../lists";
 import { Header, Segment } from "semantic-ui-react";
-import { JSONFormatter } from "../../items";
+import { JSONFormatter, CodeViewer } from "../../items";
 
 export default class Dependency extends Component {
     state = {
@@ -32,9 +32,9 @@ export default class Dependency extends Component {
                 </Segment>
 
                 <Header as="h3">Declaration</Header>
-                <Segment placeholder loading={loading}>
-                    <JSONFormatter data={serviceConfig}/>
-                </Segment>
+                <CodeViewer language="json">
+                    {JSONFormatter.format(serviceConfig) || ''}
+                </CodeViewer>
             </Page>
         )
     }

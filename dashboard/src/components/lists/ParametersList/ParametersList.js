@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { Table, Segment } from "semantic-ui-react";
-import { JSONFormatter } from "../../items";
+import { Table } from "semantic-ui-react";
+import { JSONFormatter, CodeViewer } from "../../items";
 
 export default class ParametersList extends Component {
     prepareRows() {
@@ -21,7 +21,7 @@ export default class ParametersList extends Component {
             } 
             
             if (value instanceof Object) {
-                value = <Segment placeholder size="small" padded={false}><JSONFormatter data={value}/></Segment>
+                value = <CodeViewer language="json">{JSONFormatter.format(value)}</CodeViewer>
             }
 
             return (
