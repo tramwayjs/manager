@@ -13,11 +13,7 @@ export default class EntityRepository {
     }
 
     async getOne(key) {        
-        if (!this.entities) {
-            await this.get();
-        }
-
-        return this.entities[key];
+        return await this.getEntity(key);
     }
 
     async getEntities(filter = {}) {
@@ -136,8 +132,8 @@ export default class EntityRepository {
         return beginning + "\n" + getter + "\n" + setter + ending;
     }
 
-    replaceFieldCode(code, field, item) {
-        let {field, get, set} = field;
+    replaceFieldCode(code, current, item) {
+        let {field, get, set} = current;
 
         return code
             .replace(get, this.entitiesParser.generateGetter(item.field, item.get))
