@@ -52,5 +52,33 @@ export default class EntitiesController extends RestfulController {
         return res.sendStatus(HttpStatus.NO_CONTENT);
     }
 
+    async replaceField(req, res, next) {
+        const {className, fieldName} = req.params;
+        let {field, get, set} = req.body || {};
+        let item;
+
+        try {
+            item = await this.service.replaceField(className, fieldName, field);
+        } catch(e) {
+            this.logger.error(e.stack)
+            return res.sendStatus(HttpStatus.BAD_REQUEST);
+        }
+
+        return res.sendStatus(HttpStatus.NO_CONTENT);
+    }
+
+    async deleteField(req, res, next) {
+        const {className, fieldName} = req.params;
+        let item;
+
+        try {
+            item = await this.service.deleteField(className, fieldName);
+        } catch(e) {
+            this.logger.error(e.stack)
+            return res.sendStatus(HttpStatus.BAD_REQUEST);
+        }
+
+        return res.sendStatus(HttpStatus.NO_CONTENT);
+    }
 
 }

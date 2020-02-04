@@ -7,11 +7,16 @@ import { EntityFieldForm } from '../../forms';
 
 export default class Entity extends Component {
     static defaultProps = {
+        onSaveField: () => {},
+        onDeleteField: () => {},
+    };
+
+    static defaultProps = {
         code: '',
     };
 
-    handleDeleteField(field, get, set) {
-        console.log(field, get, set)
+    async handleDeleteField(field) {
+        return await this.props.onDeleteField(field);
     }
 
     async handleSaveField(fieldItem) {
@@ -24,7 +29,7 @@ export default class Entity extends Component {
                 <Table.Cell>{field}</Table.Cell>
                 <Table.Cell>{get}</Table.Cell>
                 <Table.Cell>{set}</Table.Cell>
-                <Table.Cell><Button size="tiny" color="red" icon="trash" onClick={() => this.handleDeleteField(field, get, set)} disabled/></Table.Cell>
+                <Table.Cell><Button size="tiny" color="red" icon="trash" onClick={() => this.handleDeleteField(field)}/></Table.Cell>
             </Table.Row>
         ));
     }

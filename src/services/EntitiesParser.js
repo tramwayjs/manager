@@ -59,4 +59,19 @@ export default class EntitiesParser {
     generateSetter(field, set) {
         return `${SEPARATOR}${set || this.generateSetterFuncName(field)}(${field}) {\n${SEPARATOR}${SEPARATOR}this.${field} = ${field};\n${SEPARATOR}${SEPARATOR}return this;\n${SEPARATOR}}\n `;
     }
+
+    findFunction(code, func) {
+        const funcLocation = code.indexOf(`\n${SEPARATOR}${func}`);
+        const endChar = "}\n";
+        
+        return code.substring(funcLocation, code.indexOf(endChar, funcLocation) + endChar.length);
+    }
+
+    findGetter(code, field, get) {
+        return this.findFunction(code, get || this.generateGetterFuncName(field))
+    }
+
+    findSetter(code, field, set) {
+        return this.findFunction(code, set || this.generateSetterFuncName(field))
+    }
 }

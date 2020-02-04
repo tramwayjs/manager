@@ -81,6 +81,18 @@ const routeValues = [
         "methods": ["post"],
     },
     {
+        "controller": "controller.entities",
+        "action": "replaceField",
+        "path": "api/entities/:className/fields/:fieldName",
+        "methods": ["put"],
+    },
+    {
+        "controller": "controller.entities",
+        "action": "deleteField",
+        "path": "api/entities/:className/fields/:fieldName",
+        "methods": ["delete"],
+    },
+    {
         "controller": "controller.main",
         "action": "index",
         "path": "*",

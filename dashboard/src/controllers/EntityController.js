@@ -17,6 +17,7 @@ export default class EntityController extends ReactController {
                 code={code}
                 fields={fields}
                 onSaveField={async fieldItem => await this.handleSaveField(fieldItem)}
+                onDeleteField={async fieldName => await this.handleDeleteField(fieldName)}
             />
         )
     }
@@ -42,6 +43,25 @@ export default class EntityController extends ReactController {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(fieldItem),
+        });
+
+        if (!results.ok) {
+            throw new Error(results.status)
+        }
+
+        const item = await this.getEntity(className);
+        
+        this.setState({item});
+    }
+
+    async handleDeleteField(fieldName) {
+        const {className} = this.params;
+
+        const results = await fetch(`/api/entities/${className}/fields/${fieldName}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
         });
 
         if (!results.ok) {

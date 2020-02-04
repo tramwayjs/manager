@@ -57,7 +57,7 @@ export default class EntityRepository {
         }
 
         let {code} = entity;
-        code = this.updateCode(code, item);
+        code = this.addFieldCode(code, item);
 
         try {
             response = await this.provider.update(className, code)
@@ -69,7 +69,61 @@ export default class EntityRepository {
         return response;
     }
 
-    updateCode(code, item) {
+    async replaceField(className, fieldName, item) {
+        let entity = await this.getEntity(className);
+        let response;
+
+        if (!entity) {
+            throw new Error('Entity does not exist')
+        }
+
+        let {code, fields} = entity;
+        const [field] = fields.filter(({field}) => field === fieldName);
+
+        if (!field) {
+            throw new Error('Entity does not have field');
+        }
+
+        code = this.replaceFieldCode(code, field, item)
+
+        try {
+            response = await this.provider.update(className, code)
+        } catch(e) {
+            throw e;
+        }
+
+        this.entities = await this.getEntities();
+        return response;
+    }
+
+    async deleteField(className, fieldName) {
+        let entity = await this.getEntity(className);
+        let response;
+
+        if (!entity) {
+            throw new Error('Entity does not exist')
+        }
+
+        let {code, fields} = entity;
+        const [item] = fields.filter(({field}) => field === fieldName);
+
+        if (!item) {
+            throw new Error('Entity does not have field');
+        }
+
+        code = this.removeFieldCode(code, item)
+
+        try {
+            response = await this.provider.update(className, code)
+        } catch(e) {
+            throw e;
+        }
+
+        this.entities = await this.getEntities();
+        return response;
+    }
+
+    addFieldCode(code, item) {
         let {field, get, set} = item;
 
         const getter = this.entitiesParser.generateGetter(field, get);
@@ -82,4 +136,21 @@ export default class EntityRepository {
         return beginning + "\n" + getter + "\n" + setter + ending;
     }
 
+    replaceFieldCode(code, field, item) {
+        let {field, get, set} = field;
+
+        return code
+            .replace(get, this.entitiesParser.generateGetter(item.field, item.get))
+            .replace(set, this.entitiesParser.generateSetter(item.field, item.set))
+        ;
+    }
+
+    removeFieldCode(code, item) {
+        let {field, get, set} = item;
+
+        const getter = this.entitiesParser.findGetter(code, field, get);
+        const setter = this.entitiesParser.findSetter(code, field, set);
+
+        return code.replace(getter, '').replace(setter, '');
+    }
 }
