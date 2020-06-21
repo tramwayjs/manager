@@ -6,6 +6,9 @@ import {
     SystemService,
     LogsParser,
     EntitiesParser,
+    TemplateService,
+    FactoriesParser,
+    EntityService,
 } from '../../services';
 
 export default {
@@ -34,5 +37,21 @@ export default {
     },
     "entity-parser": {
         "class": EntitiesParser,
+    },
+    "factory-parser": {
+        "class": FactoriesParser,
+    },
+    "service.template": {
+        "class": TemplateService,
+        "constructor": [
+            {"type": "service", "key": "provider.file"},
+        ]
+    },
+    "service.entity": {
+        "class": EntityService,
+        "constructor": [
+            {"type": "service", "key": "repository.entity"},
+            {"type": "service", "key": "repository.factory"},
+        ]
     },
 };

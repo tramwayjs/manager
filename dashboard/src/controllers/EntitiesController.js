@@ -24,11 +24,34 @@ export default class ServicesController extends ReactController {
     }
 
     async handleCreate(entity) {
+        const results = await fetch(`/api/entities`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(entity),
+        });
 
+        if (!results.ok) {
+            throw new Error(results.status)
+        }
+
+        await this.getEntities();
     }
 
     async handleDelete(className) {
+        const results = await fetch(`/api/entities/${className}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
 
+        if (!results.ok) {
+            throw new Error(results.status)
+        }
+
+        await this.getEntities();
     }
 
     async componentDidMount() {

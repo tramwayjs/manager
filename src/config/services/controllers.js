@@ -7,6 +7,7 @@ import {
     SystemController,
     LogsController,
     EntitiesController,
+    FactoriesController,
 } from '../../controllers';
 
 export default {
@@ -85,7 +86,17 @@ export default {
         "class": EntitiesController,
         "constructor": [
             {"type": "service", "key": "router"},
-            {"type": "service", "key": "repository.entity"},
+            {"type": "service", "key": "service.entity"},
+            {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
+        ],
+        "functions": []
+    },
+    "controller.factories": {
+        "class": FactoriesController,
+        "constructor": [
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "repository.factory"},
             {"type": "service", "key": "service.formatter"},
             {"type": "service", "key": "logger"},
         ],

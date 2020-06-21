@@ -7,7 +7,11 @@ import bodyParser from './bodyParser';
 import methodOverrides from './methodOverrides';
 import routes from './routes';
 import {staticRoute, staticRouteMiddleware} from './static';
-import {entityFileConfig, dependencyFileConfig} from './fileConfig';
+import {
+    entityFileConfig, 
+    dependencyFileConfig,
+    factoryFileConfig,
+} from './fileConfig';
 
 export default {
     ...winston,
@@ -22,4 +26,5 @@ export default {
     staticRouteMiddleware,
     entityFileConfig,
     dependencyFileConfig,
+    factoryFileConfig,
 }

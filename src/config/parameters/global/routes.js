@@ -76,6 +76,13 @@ const routeValues = [
     },
     {
         "controller": "controller.entities",
+        "action": "delete",
+        "path": "api/entities",
+        "methods": ["delete"],
+        "arguments": ["className"],
+    },
+    {
+        "controller": "controller.entities",
         "action": "createField",
         "path": "api/entities/:className/fields",
         "methods": ["post"],
@@ -91,6 +98,19 @@ const routeValues = [
         "action": "deleteField",
         "path": "api/entities/:className/fields/:fieldName",
         "methods": ["delete"],
+    },
+    {
+        "controller": "controller.factories",
+        "action": "get",
+        "path": "api/factories",
+        "methods": ["get"],
+    },
+    {
+        "controller": "controller.factories",
+        "action": "getOne",
+        "path": "api/factories",
+        "methods": ["get"],
+        "arguments": ["className"],
     },
     {
         "controller": "controller.main",

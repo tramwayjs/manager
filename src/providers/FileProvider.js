@@ -1,22 +1,19 @@
 import {promises as fs} from 'fs';
 import mkdirp from 'mkdirp';
+import path from 'path';
 
 //TODO: Move to own installable library
 export default class FileProvider {
-    constructor(options = {}) {
-        this.options = options;
+    async get(options) {
+        return await this.query({}, options);
     }
 
-    async get() {
-        return await this.query();
-    }
-
-    async query(options = {}) {
-        const {dir} = this.options;
+    async query(criteria = {}, options = {}) {
+        const {dir} = options;
 
         let files = await this.getFiles(dir);
 
-        const {exclusions = [], inclusions = []} = options;
+        const {exclusions = [], inclusions = []} = criteria;
 
         if (exclusions.length) {
             files = files.filter(file => !exclusions.includes(file));
@@ -29,38 +26,58 @@ export default class FileProvider {
         return await this.readFiles(dir, files);
     }
 
-    async getOne(id) {
+    async getOne(id, options) {
         return await this.query({
             inclusions: [id],
-        });
+        }, options);
     }
 
-    async create(item = {}) {
+    async create(item = {}, options = {}) {
         const {id, data} = item;
-        return await this.update(id, data);
+        return await this.update(id, data, options);
     }
 
-    async update(id, data) {
-        const {dir, ext} = this.options;
+    async update(id, data, options = {}) {
+        const {dir, ext} = options;
+        const filePath = path.join(dir, id);
+
         try {
-            return await this.writeFile(`${dir}/${id}`, data, ext);
+            return await this.writeFile(filePath, data, ext);
         } catch(e) {
+            console.log(e)
             if (e.message.includes('no such file or directory')) {
                 mkdirp.sync(dir);
-                return await this.writeFile(`${dir}/${id}`, data, ext);
+                return await this.writeFile(filePath, data, ext);
             }
 
             throw e;
         }
     }
-    
+
+    async delete(id, options = {}) {
+        const {dir, ext} = options;
+
+        try {
+            return await this.deleteFile(`${path.join(dir, id)}.${ext}`);
+        } catch(e) {
+            throw e;
+        }
+    }
 
     async getFiles(dir) {
         return await fs.readdir(dir);
     }
 
+    async deleteFile(file) {
+        return await fs.unlink(file);
+    }
+
+    async readFile(file) {
+        return await fs.readFile(file);
+    }
+
     async readFiles(dir, files = []) {
-        files = files.map(async id => ({id, data: await fs.readFile(`${dir}/${id}`)}));
+        files = files.map(async id => ({id, data: await this.readFile(path.join(dir, id))}));
         return await Promise.all(files);
     }
 

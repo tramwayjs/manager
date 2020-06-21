@@ -1,7 +1,8 @@
 export default class DependenciesRepository {
-    constructor(provider, configParser) {
+    constructor(provider, configParser, options) {
         this.provider = provider;
         this.configParser = configParser;
+        this.options = options;
     }
 
     async get() {
@@ -51,7 +52,7 @@ export default class DependenciesRepository {
             exclusions: ['index.js'],   
         };
 
-        let services = await this.provider.query(options);
+        let services = await this.provider.query(options, this.options);
         services = services.map(({data}) => this.configParser.getJSONFromServices(data.toString()));
 
         services = services.reduce((accumulator, item) => {

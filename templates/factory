@@ -1,0 +1,24 @@
+{parentClassImport}
+{entityClassImport}
+
+export default class {className} extends {parentClassName} {
+    create(item) {
+        {if entityFields}
+        const {
+        {for field in entityFields}
+            {field.field},
+        {/for}
+        } = item;
+        {else}
+        const {} = item;
+        {/if}
+        {if entityFields}
+        return new {entityClassName}()
+            {for field in entityFields}
+            .{field.set}({field.field})
+            {/for}
+            ;
+        {else}
+        return new {entityClassName}();{/if}
+    }
+}

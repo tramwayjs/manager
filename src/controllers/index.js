@@ -6,6 +6,7 @@ import AppController from './AppController';
 import SystemController from './SystemController';
 import LogsController from './LogsController';
 import EntitiesController from './EntitiesController';
+import FactoriesController from './FactoriesController';
 
 export {
     MainController,
@@ -16,4 +17,5 @@ export {
     SystemController,
     LogsController,
     EntitiesController,
+    FactoriesController,
 }

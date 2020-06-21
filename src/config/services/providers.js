@@ -3,18 +3,9 @@ import {
 } from '../../providers';
 
 export default {
-    "provider.file:entity": {
+    "provider.file": {
         "class": FileProvider,
-        "constructor": [
-            {"type": "parameter", "key": "entityFileConfig"},
-        ],
-        "functions": []
-    },
-    "provider.file:dependency": {
-        "class": FileProvider,
-        "constructor": [
-            {"type": "parameter", "key": "dependencyFileConfig"},
-        ],
+        "constructor": [],
         "functions": []
     },
 };

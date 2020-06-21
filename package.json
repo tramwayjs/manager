@@ -33,11 +33,12 @@
     "method-override": "^3.0.0",
     "mkdirp": "^1.0.3",
     "pidusage": "^2.0.17",
-    "tramway": "^0.5.1",
+    "tramway": "^0.5.5",
     "tramway-core-logger": "^0.1.0",
     "tramway-core-router": "^3.6.2",
     "tramway-formatter-hateaos": "^0.4.2",
-    "tramway-logger-winston": "^0.1.0"
+    "tramway-logger-winston": "^0.1.0",
+    "whiskers": "^0.4.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.5.5",

@@ -8,11 +8,12 @@ export default class EntityController extends ReactController {
     
     render() {
         const {item} = this.state;
-        const {className, baseClassName, fields, code} = item || {};
+        const {className, baseClassName, fields, code, location} = item || {};
 
         return (
             <Entity
                 className={className}
+                location={location}
                 baseClassName={baseClassName}
                 code={code}
                 fields={fields}

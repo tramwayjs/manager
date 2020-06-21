@@ -2,6 +2,10 @@ import {controllers, HttpStatus} from 'tramway-core-router';
 const {RestfulController} = controllers;
 
 export default class EntitiesController extends RestfulController {
+    constructor(router, service, formatter, logger) {
+        super(router, service, formatter, logger);
+    }
+
     async get(req, res, next) {
         let entities;
 
@@ -30,11 +34,34 @@ export default class EntitiesController extends RestfulController {
     }
 
     async create(req, res, next) {
+        const {className, parentClassName, parentClassImport} = req.body;
+        let item;
 
+        try {
+            item = await this.service.create({className, parentClassName, parentClassImport}, true);
+        } catch(e) {
+            this.logger.error(e.stack)
+            return res.sendStatus(HttpStatus.BAD_REQUEST);
+        }
+
+        return res.sendStatus(HttpStatus.NO_CONTENT);
     }
 
     async update(req, res, next) {
 
+    }
+
+    async delete(req, res, next) {
+        const {className} = req.params;
+
+        try {
+            await this.service.delete(className);
+        } catch(e) {
+            this.logger.error(e.stack)
+            return res.sendStatus(HttpStatus.NOT_FOUND);
+        }
+
+        return res.sendStatus(HttpStatus.NO_CONTENT);
     }
 
     async createField(req, res, next) {
@@ -43,7 +70,7 @@ export default class EntitiesController extends RestfulController {
         let item;
 
         try {
-            item = await this.service.createField(className, {field, get, set});
+            item = await this.service.createField(className, {field, get, set}, true);
         } catch(e) {
             this.logger.error(e.stack)
             return res.sendStatus(HttpStatus.BAD_REQUEST);
@@ -58,7 +85,7 @@ export default class EntitiesController extends RestfulController {
         let item;
 
         try {
-            item = await this.service.replaceField(className, fieldName, field);
+            item = await this.service.replaceField(className, fieldName, field, get, set);
         } catch(e) {
             this.logger.error(e.stack)
             return res.sendStatus(HttpStatus.BAD_REQUEST);

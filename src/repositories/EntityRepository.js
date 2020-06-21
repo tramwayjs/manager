@@ -1,7 +1,11 @@
+import path from 'path';
+
 export default class EntityRepository {
-    constructor(provider, entitiesParser) {
+    constructor(provider, entitiesParser, templateService, options = {}) {
         this.provider = provider;
         this.entitiesParser = entitiesParser;
+        this.templateService = templateService;
+        this.options = options;
     }
 
     async get() {
@@ -25,8 +29,15 @@ export default class EntityRepository {
             options.inclusions = [`${filter.className}.js`];
         }
 
-        let entities = await this.provider.query(options);
-        entities = entities.map(({data}) => this.entitiesParser.parseEntity(data.toString()));
+        let entities;
+        
+        try {
+            entities = await this.provider.query(options, this.options);
+        } catch (e) {
+            entities = [];
+        }
+
+        entities = entities.map(({data}) => this.prepareEntity(data.toString()));
 
         entities = entities.reduce((accumulator, item) => {
             accumulator[item.className] = item;
@@ -35,13 +46,51 @@ export default class EntityRepository {
         return entities;
     }
 
+    prepareEntity(data) {
+        let item = this.entitiesParser.parseEntity(data);
+
+        if (!item) {
+            return;
+        }
+        
+        const {dir, ext} = this.options;
+        item.location = path.resolve(dir, `${item.className}.${ext}`);
+
+        return item;
+    }
+
     async getEntity(className) {
         const entities = await this.getEntities({className});
         return entities[className];
     }
 
+    async createEntity({className, parentClassName, parentClassImport}) {
+        let template = this.createEntityTemplate({className, parentClassName, parentClassImport});
+
+        let data = await this.templateService.render(template);
+        await this.provider.create({id: className, data }, this.options);
+        this.entities = await this.getEntities();
+    }
+
+    createEntityTemplate({className, parentClassName, parentClassImport}) {
+        return this.templateService.resolveTemplate('entity')
+            .setClassName(className)
+            .setParentClassName(parentClassName)
+            .setParentClassImport(parentClassImport)
+        ;
+    }
+
+    generateImportStatement(entityClassName) {
+        return `import { ${entityClassName} } from '../entities'`;
+    }
+
     async updateEntity(className, item) {
 
+    }
+
+    async deleteEntity(className) {
+        await this.provider.delete(className, this.options)
+        this.entities = await this.getEntities();
     }
 
     async createField(className, item) {
@@ -56,7 +105,7 @@ export default class EntityRepository {
         code = this.addFieldCode(code, item);
 
         try {
-            response = await this.provider.update(className, code)
+            response = await this.provider.update(className, code, this.options)
         } catch(e) {
             throw e;
         }
@@ -83,7 +132,7 @@ export default class EntityRepository {
         code = this.replaceFieldCode(code, field, item)
 
         try {
-            response = await this.provider.update(className, code)
+            response = await this.provider.update(className, code, this.options)
         } catch(e) {
             throw e;
         }
@@ -110,7 +159,7 @@ export default class EntityRepository {
         code = this.removeFieldCode(code, item)
 
         try {
-            response = await this.provider.update(className, code)
+            response = await this.provider.update(className, code, this.options)
         } catch(e) {
             throw e;
         }

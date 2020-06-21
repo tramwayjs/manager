@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Page } from "../../layout";
-import { Grid, Header, Button, Table } from "semantic-ui-react";
+import { Grid, Header, Button, Table, Image } from "semantic-ui-react";
 import { CodeViewer, JSONFormatter } from '../../items';
 import { CreateItem } from '../../buttons';
 import { EntityFieldForm } from '../../forms';
+import path from 'path';
 
 export default class Entity extends Component {
     static defaultProps = {
@@ -46,14 +47,25 @@ export default class Entity extends Component {
         );
     }
 
+    prepareVscodePath(location) {
+        if (!location) {
+            return "";
+        }
+
+        return 'vscode://' + path.join('file', location);
+    }
+
     render() {
-        const {className, baseClassName, fields, code} = this.props;
+        const {className, baseClassName, fields, code, location} = this.props;
 
         return (
             <Page>
                 <Header as="h2">
                     <Header.Content>{className}</Header.Content>
                     <Header.Subheader>{baseClassName}</Header.Subheader>
+                    <Header.Subheader>
+                        Location: <a href={this.prepareVscodePath(location)}><Image src="/icons/vscode16.png" size='mini' spaced style={{width: "1.14285714rem"}}/>{' '}{location}</a>
+                    </Header.Subheader>
                 </Header>
                 <Grid>
                     <Grid.Row>

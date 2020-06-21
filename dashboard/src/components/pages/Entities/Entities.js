@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Page } from "../../layout";
 import { Table, Button, Header } from "semantic-ui-react";
+import { CreateItem } from '../../buttons';
+import { EntityForm } from '../../forms';
+
 
 export default class Entities extends Component {
     static defaultProps = {
@@ -14,8 +17,16 @@ export default class Entities extends Component {
         return this.props.onDelete(className);
     }
 
-    handleCreateEntity() {
-        console.log('open an editor or something')
+    prepareEntityEditor() {
+        return (
+            <CreateItem 
+                title="Create Entity"
+                trigger={<Button size="tiny" color="green" icon="plus"/>}
+                handleSave={async entity => await this.handleSaveEntity(entity)}
+            >
+                <EntityForm/>
+            </CreateItem>
+        );
     }
 
     handleSaveEntity(entity) {
@@ -31,7 +42,7 @@ export default class Entities extends Component {
             <Table.Row onClick={() => this.handleSelectEntity(className)}>
                 <Table.Cell>{className}</Table.Cell>
                 <Table.Cell>{baseClassName}</Table.Cell>
-                <Table.Cell><Button size="tiny" color="red" icon="trash" onClick={evt => this.handleDeleteEntity(evt, className)} disabled/></Table.Cell>
+                <Table.Cell><Button size="tiny" color="red" icon="trash" onClick={evt => this.handleDeleteEntity(evt, className)}/></Table.Cell>
             </Table.Row>
         ))
     }
@@ -47,7 +58,7 @@ export default class Entities extends Component {
                         <Table.Row>
                             <Table.HeaderCell>Class</Table.HeaderCell>
                             <Table.HeaderCell>Base Class</Table.HeaderCell>
-                            <Table.HeaderCell><Button size="tiny" color="green" icon="plus" onClick={() => this.handleCreateEntity()} disabled/></Table.HeaderCell>
+                            <Table.HeaderCell>{this.prepareEntityEditor()}</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
