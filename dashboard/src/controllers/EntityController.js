@@ -17,6 +17,7 @@ export default class EntityController extends ReactController {
                 baseClassName={baseClassName}
                 code={code}
                 fields={fields}
+                onEdit={async entity => await this.handleEdit(className, entity)}
                 onSaveField={async fieldItem => await this.handleSaveField(fieldItem)}
                 onDeleteField={async fieldName => await this.handleDeleteField(fieldName)}
             />
@@ -33,6 +34,25 @@ export default class EntityController extends ReactController {
     async getEntity(className) {
         const results = await fetch(`/api/entities/${className}`);
         return await results.json();
+    }
+
+    async handleEdit(className, entity) {
+        const results = await fetch(`/api/entities/${className}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(entity),
+        });
+
+        if (!results.ok) {
+            throw new Error(results.status)
+        }
+
+        this.history.push(`/entities/${entity.className}`);
+        const item = await this.getEntity(entity.className);
+        
+        this.setState({item});
     }
 
     async handleSaveField(fieldItem) {

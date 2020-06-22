@@ -87,7 +87,7 @@ export default class FactoryRepository {
         ;
     }
 
-    async updateFactory(className, {entityField}) {
+    async updateFactory(className, {entityField, entityClassName}) {
         let factory = await this.getFactory(className);
         let response;
 
@@ -96,6 +96,21 @@ export default class FactoryRepository {
         }
 
         let {code} = factory;
+
+        if (entityClassName && `${entityClassName}Factory` !== className) {
+            const {dir, ext} = this.options;
+            const currentFile = path.join(dir, `${className}.${ext}`);
+            let newClassName = `${entityClassName}Factory`;
+            const newFile = path.join(dir, `${newClassName}.${ext}`);
+            await this.provider.rename(currentFile, newFile);
+
+            code = code
+                .replace(className, newClassName)
+                .replace(factory.entityClassName, entityClassName)
+            ;
+
+            className = newClassName;
+        }
 
         if (entityField) {
             code = this.addSetStatement(code, entityField);
@@ -143,24 +158,6 @@ export default class FactoryRepository {
         const setter = this.factoriesParser.generateField(field);
 
         return createFunction.replace(settersStatementEnd, setter + this.factoriesParser.generateSetFunctionNewLine() + settersStatementEnd);
-
-
-
-        // const start = createFunction.indexOf('const {');
-        // const end = createFunction.indexOf('}', start) + 1;
-        // let destructuringLastFieldEnd = createFunction.lastIndexOf(',', start);
-
-        // if (-1 === destructuringLastFieldEnd) {
-        //     destructuringLastFieldEnd = start + 'const {'.length;
-        // }
-
-        // const destructuringPart = createFunction.substring(start, end);
-        // const startStub = createFunction.substring(start, destructuringLastFieldEnd);
-        // const endStub = createFunction.substring(destructuringLastFieldEnd, end);
-
-        // let destructuredField = this.factoriesParser.generateField(field);
-
-        // return createFunction.replace(destructuringPart, startStub + destructuredField + this.factoriesParser.generateSetFunctionNewLine() + endStub);
     }
 
     generateSetterCall(createFunction, field, set) {

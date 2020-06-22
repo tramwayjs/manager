@@ -3,13 +3,14 @@ import { Page } from "../../layout";
 import { Grid, Header, Button, Table, Image } from "semantic-ui-react";
 import { CodeViewer, JSONFormatter } from '../../items';
 import { CreateItem } from '../../buttons';
-import { EntityFieldForm } from '../../forms';
+import { EntityForm, EntityFieldForm } from '../../forms';
 import path from 'path';
 
 export default class Entity extends Component {
     static defaultProps = {
         onSaveField: () => {},
         onDeleteField: () => {},
+        onEdit: () => {},
     };
 
     static defaultProps = {
@@ -22,6 +23,22 @@ export default class Entity extends Component {
 
     async handleSaveField(fieldItem) {
         return await this.props.onSaveField(fieldItem)
+    }
+
+    prepareEntityEditor() {
+        return (
+            <CreateItem 
+                title="Edit Entity"
+                trigger={<Button size="tiny" icon="edit" floated="right"/>}
+                handleSave={async entity => await this.handleSaveEntity(entity)}
+            >
+                <EntityForm/>
+            </CreateItem>
+        );
+    }
+
+    handleSaveEntity(entity) {
+        return this.props.onEdit(entity);
     }
 
     prepareFields(fields = []) {
@@ -67,6 +84,7 @@ export default class Entity extends Component {
                         Location: <a href={this.prepareVscodePath(location)}><Image src="/icons/vscode16.png" size='mini' spaced style={{width: "1.14285714rem"}}/>{' '}{location}</a>
                     </Header.Subheader>
                 </Header>
+                {this.prepareEntityEditor()}
                 <Grid>
                     <Grid.Row>
                         <Grid.Column width={12}>

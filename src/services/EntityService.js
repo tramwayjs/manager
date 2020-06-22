@@ -54,6 +54,29 @@ export default class EntityService {
         return item;
     }
 
+    async update(currentClassName, {className, parentClassName, parentClassImport}, withFactory) {
+        let item;
+
+        try {
+            item = await this.repository.updateEntity(currentClassName, {className, parentClassName, parentClassImport});
+        } catch(e) {
+            throw e;
+        }
+
+        if (withFactory) {
+            try {    
+                let factory = await this.factoryService.updateFactory(`${currentClassName}Factory`, {
+                    entityClassName: className, 
+                    entityClassImport: this.repository.generateImportStatement(className),
+                })
+            } catch(e) {
+                throw e;
+            }
+        }
+
+        return item;
+    }
+
     async delete(className) {
         try {
             await this.repository.deleteEntity(className);

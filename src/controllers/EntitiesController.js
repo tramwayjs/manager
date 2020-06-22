@@ -48,7 +48,19 @@ export default class EntitiesController extends RestfulController {
     }
 
     async update(req, res, next) {
+        const {className: currentClassName} = req.params;
+        const {className, parentClassName, parentClassImport} = req.body;
 
+        let item;
+
+        try {
+            item = await this.service.update(currentClassName, {className, parentClassName, parentClassImport}, true);
+        } catch(e) {
+            this.logger.error(e.stack)
+            return res.sendStatus(HttpStatus.BAD_REQUEST);
+        }
+
+        return res.sendStatus(HttpStatus.NO_CONTENT);
     }
 
     async delete(req, res, next) {

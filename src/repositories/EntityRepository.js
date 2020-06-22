@@ -84,8 +84,34 @@ export default class EntityRepository {
         return `import { ${entityClassName} } from '../entities'`;
     }
 
-    async updateEntity(className, item) {
+    async updateEntity(currentClassName, {className, parentClassName, parentClassImport}) {
+        let currentEntity = await this.getOne(currentClassName);
 
+        if (!currentEntity) {
+            throw new Error('Entity does not exist')
+        }
+
+        let data = currentEntity.code;
+
+        if (currentClassName !== className) {
+            const {dir, ext} = this.options;
+            const currentFile = path.join(dir, `${currentClassName}.${ext}`);
+            const newFile = path.join(dir, `${className}.${ext}`);
+            await this.provider.rename(currentFile, newFile);
+
+            data = data.replace(currentClassName, className);
+        }
+
+        // if (currentEntity.parentClassName !== parentClassName) {
+        //     data = data.replace(currentEntity.parentClassName, parentClassName);
+        // }
+
+        // if (currentEntity.parentClassImport !== parentClassImport) {
+        //     data = data.replace(currentEntity.parentClassImport, parentClassImport);
+        // }
+
+        await this.provider.update(className, data, this.options);
+        this.entities = await this.getEntities();
     }
 
     async deleteEntity(className) {

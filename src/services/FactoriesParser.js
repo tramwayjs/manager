@@ -11,7 +11,7 @@ export default class FactoriesParser {
 
     findEntityClassName(contents) {
         let create = this.findFunction(contents, 'create');
-        const [entityClassName] = create.match(/return\s*new\s*(\w*)\(/) || [];
+        const [_, entityClassName] = create.match(/return\s*new\s*(\w*)\(/) || [];
         return entityClassName;
     }
 

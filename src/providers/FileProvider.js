@@ -84,4 +84,8 @@ export default class FileProvider {
     async writeFile(file, contents, ext = 'js') {
         return await fs.writeFile(`${file}.${ext}`, contents);
     }
+
+    async rename(oldFile, newFile) {
+        return await fs.rename(oldFile, newFile);
+    }
 }
