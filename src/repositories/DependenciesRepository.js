@@ -1,35 +1,40 @@
-import fs from 'fs';
-
 export default class DependenciesRepository {
-    constructor(configParser) {
+    constructor(provider, configParser, options) {
+        this.provider = provider;
         this.configParser = configParser;
+        this.options = options;
     }
 
-    async getServices(filter) {
+    async get() {
         if (!this.services) {
-            const baseDir = 'src/config/services';
-    
-            let services = await new Promise((resolve, reject) => fs.readdir(baseDir, (err, files) => err ? reject(err) : resolve(files)));
-            services = services.filter(file => !['index.js'].includes(file));
-            services = await Promise.all(services.map(async file => await new Promise((resolve, reject) => fs.readFile(`${baseDir}/${file}`, (err, data) => err ? reject(err) : resolve(data)))));
-            services = services.map(file => this.configParser.getJSONFromServices(file.toString()));
-            services = services.reduce((accumulator, item) => {
-                return {...accumulator, ...item};
-            }, {});
-    
-            this.services = services;
+            this.services = await this.getServices();
         }
 
-        if (filter) {
-            return Object.entries(this.services)
-                .filter(([key]) => {
-                    const [type, ...spec] = key.split('.');
+        return this.services;
+    }
 
-                    if ('service' === filter && !spec.length) {
+    async getOne(key) {        
+        if (!this.services) {
+            await this.get();
+        }
+
+        return this.services[key];
+    }
+
+    async query(filter = {}) {
+        const {type} = filter;
+        let services = await this.get();
+
+        if (type) {
+            services = Object.entries(services)
+                .filter(([key]) => {
+                    const [prefix, ...spec] = key.split('.');
+
+                    if ('service' === prefix && !spec.length) {
                         return true;
                     }
 
-                    return type === filter;
+                    return type === prefix;
                 })
                 .reduce((accumulator, [key, service]) => {
                     return {
@@ -39,14 +44,20 @@ export default class DependenciesRepository {
                 }, {});
         }
 
-        return this.services;
+        return services;
     }
 
-    async getService(key) {        
-        if (!this.servicesConfig) {
-            await this.getServices();
-        }
+    async getServices() {
+        let options = {
+            exclusions: ['index.js'],   
+        };
 
-        return this.services[key];
+        let services = await this.provider.query(options, this.options);
+        services = services.map(({data}) => this.configParser.getJSONFromServices(data.toString()));
+
+        services = services.reduce((accumulator, item) => {
+            return {...accumulator, ...item};
+        }, {});
+        return services;
     }
 }

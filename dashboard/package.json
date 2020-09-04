@@ -7,6 +7,7 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0",
+    "react-syntax-highlighter": "^12.2.1",
     "semantic-ui-react": "^0.88.1",
     "tramway-core-router": "^3.6.2",
     "tramway-router-react-strategy": "^2.3.1"

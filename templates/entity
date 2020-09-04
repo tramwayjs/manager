@@ -1,0 +1,5 @@
+{parentClassImport}
+
+export default class {className} extends {parentClassName} {
+
+}

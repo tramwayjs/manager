@@ -6,6 +6,8 @@ import {
     AppController,
     SystemController,
     LogsController,
+    EntitiesController,
+    FactoriesController,
 } from '../../controllers';
 
 export default {
@@ -33,8 +35,8 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "config-parser"},
-            {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
         ],
         "functions": []
     },
@@ -43,8 +45,8 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "repository.dependencies"},
-            {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.app-manager"},
         ],
         "functions": []
@@ -54,8 +56,8 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "service.app-manager"},
-            {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
         ],
         "functions": []
     },
@@ -64,8 +66,8 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "service.system"},
-            {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.app-manager"},
         ],
         "functions": []
@@ -75,8 +77,28 @@ export default {
         "constructor": [
             {"type": "service", "key": "router"},
             {"type": "service", "key": "service.logs"},
-            {"type": "service", "key": "logger"},
             {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
+        ],
+        "functions": []
+    },
+    "controller.entities": {
+        "class": EntitiesController,
+        "constructor": [
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "service.entity"},
+            {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
+        ],
+        "functions": []
+    },
+    "controller.factories": {
+        "class": FactoriesController,
+        "constructor": [
+            {"type": "service", "key": "router"},
+            {"type": "service", "key": "repository.factory"},
+            {"type": "service", "key": "service.formatter"},
+            {"type": "service", "key": "logger"},
         ],
         "functions": []
     },

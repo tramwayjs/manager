@@ -51,6 +51,16 @@ const routesValues = [
         "path": "factories",
     },
     {
+        "controller": "controller.entities",
+        "methods": ["get"],
+        "path": "entities",
+    },
+    {
+        "controller": "controller.entity",
+        "methods": ["get"],
+        "path": "entities/:className",
+    },
+    {
         "controller": "controller.dependency-inspection",
         "path": "services/:key",
         "methods": ["get"],

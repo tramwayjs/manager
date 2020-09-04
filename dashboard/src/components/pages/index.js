@@ -6,6 +6,8 @@ import Dependency from './Dependency';
 import Parameters from './Parameters';
 import Services from './Services';
 import Logs from './Logs';
+import Entity from './Entity';
+import Entities from './Entities';
 import NotFound from './NotFound';
 
 export {
@@ -17,5 +19,7 @@ export {
     Parameters,
     Services,
     Logs,
+    Entity,
+    Entities,
     NotFound,
 }
